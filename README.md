@@ -2,7 +2,7 @@
 Spy on twitch users.
 
 TwitchSpy allows you to log information on what channel user was watching and when.
-The program was made for educational purposes. The code may not be perfect and will be changed in the future.
+<br>The program was made for educational purposes. The code may not be perfect and will be changed in the future.
 
 <img src="https://i.imgur.com/HTy2zeI.png"/>
 
