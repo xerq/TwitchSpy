@@ -12,7 +12,7 @@ namespace TwitchSpy
 		{
 		}
 
-		public static void getViewersOfChannel (string channelName, Action<List<string>> callback)
+		public static void GetViewersOfChannel (string channelName, Action<List<string>> callback)
 		{
 			WebClient wc = new WebClient ();
 			string apiLink = "https://tmi.twitch.tv/group/user/" + channelName + "/chatters";
@@ -43,7 +43,7 @@ namespace TwitchSpy
 			wc.DownloadStringAsync (new Uri (apiLink));
 		}
 
-		public static void getFollowingCount (string channelName, Action<int> callback)
+		public static void GetFollowingCount (string channelName, Action<int> callback)
 		{
 			WebClient wc = new WebClient ();
 
@@ -62,10 +62,10 @@ namespace TwitchSpy
 			wc.DownloadStringAsync (new Uri (countLink));
 		}
 
-		public static void getFollowing (string channelName, Action<List<string>> callback)
+		public static void GetFollowing (string channelName, Action<List<string>> callback)
 		{
 			////GET NUMBER OF FOLLOWS
-			getFollowingCount (channelName, (int followsCount) => {
+			GetFollowingCount (channelName, (int followsCount) => {
 				int currentOffset = 0;
 
 				for (currentOffset = 0; currentOffset < followsCount; currentOffset += 100) {
@@ -96,7 +96,7 @@ namespace TwitchSpy
 		}
 
 		[Obsolete]
-		public static void getFollowingEasy (string channelName, Action<List<string>> callback)
+		public static void GetFollowingEasy (string channelName, Action<List<string>> callback)
 		{
 			WebClient wc = new WebClient ();
 			int currentOffset = 0;
@@ -121,7 +121,7 @@ namespace TwitchSpy
 			wc.DownloadStringAsync (new Uri (apiLink));
 		}
 
-		public static void getTopChannels (int limit, Action<List<string>> callback)
+		public static void GetTopChannels (int limit, Action<List<string>> callback)
 		{
 			for (int offset = 0; offset < limit; offset += 100) {
 				WebClient wc = new WebClient ();
