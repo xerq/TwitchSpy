@@ -3,10 +3,10 @@ using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 //MONGODB
 using MongoDB.Bson;
-using System.Threading.Tasks;
 
 namespace TwitchSpy
 {
@@ -21,47 +21,56 @@ namespace TwitchSpy
 
 		public static void Main (string[] args)
 		{
-			if(Config.useDb)
+			if (Config.useDb)
 				dbmanager = new manageDb (Config.mongodbConnectionString, Config.mongoDatabaseName);
 
 			watchingChannels = new List<string> ();
 			topChannels = new List<string> ();
-			watchedUsers = new List<User>();
+			watchedUsers = new List<User> ();
 
-			TwitchApi.getTopChannels(Config.topChannelsLimit, (channels) => {
-				channels.ForEach(channel => topChannels.Add(channel));
+			TwitchApi.getTopChannels (Config.topChannelsLimit, (channels) => {
+				channels.ForEach (channel => topChannels.Add (channel));
 			});
 
 			Console.WriteLine ("Enter user's name you wanna watch");
 			string userName = Console.ReadLine ();
-			User currentUser = new User(userName);
+			User currentUser = new User (userName);
 			watchedUsers.Add (currentUser);
 
 
 			TwitchApi.getFollowing (userName, (List<string> follows) => {
 				
-				follows.ForEach(follow => {
-					Console.WriteLine(follow);
-					currentUser.follows.Add(follow);
+				follows.ForEach (follow => {
+					Console.WriteLine (follow);
+					currentUser.follows.Add (follow);
 				});
 
 			});
 
 			Task.Run (async delegate {
-				while(true){
+				while (true) {
 					bool isDone = false;
-					watchUsers(watchedUsers, (status) => {isDone = true;});
-					while(!isDone){
-						await Task.Delay(10);
+					watchUsers (watchedUsers, (status) => {
+						isDone = true;
+					});
+					while (!isDone) {
+						await Task.Delay (10);
 					}
 				}
 
 			});
 
-			string[] commands = new string[] { "info", "addChannels", "removeChannels", "customChannels", "totalChannels", "help" };
+			string[] commands = new string[] {
+				"info",
+				"addChannels",
+				"removeChannels",
+				"customChannels",
+				"totalChannels",
+				"help"
+			};
 
 			string command;
-			while ((command = Console.ReadLine()) != "exit") {
+			while ((command = Console.ReadLine ()) != "exit") {
 				if (command == "info") {
 					currentUser.watchingList.ForEach (wd => {
 						Console.WriteLine ("{0} was watching {1} on {2}", currentUser.name, wd.channelName, wd.when);
@@ -103,7 +112,7 @@ namespace TwitchSpy
 
 					channelsList.ForEach (channel => Console.WriteLine (channel));
 				} else if (command == "help") {
-					Console.WriteLine ("Available commands: {0}", string.Join(", ", commands));
+					Console.WriteLine ("Available commands: {0}", string.Join (", ", commands));
 				}
 			}
 		}
@@ -112,10 +121,10 @@ namespace TwitchSpy
 		{
 			HashSet<string> channels = new HashSet<string> ();
 
-			topChannels.ForEach(topChannel => channels.Add(topChannel));
+			topChannels.ForEach (topChannel => channels.Add (topChannel));
 
 			watchedUsers.ForEach (user => {
-				user.follows.ForEach(follow => channels.Add(follow));
+				user.follows.ForEach (follow => channels.Add (follow));
 			});
 
 			if (customChannels != null)
@@ -127,20 +136,20 @@ namespace TwitchSpy
 
 			channelsList.ForEach (channel => {
 				TwitchApi.getViewersOfChannel (channel, (viewers) => {
-					watchedUsers.ForEach(watchedUser => {
+					watchedUsers.ForEach (watchedUser => {
 						int count = viewers.Count (viewer => viewer == watchedUser.name);
 						if (count != 0) {
-							watchedUser.watchingList.Add(new WatchLog(channel, DateTime.Now));
-							Console.WriteLine("{0} is watching {1} on {2}", watchedUser.name, channel, DateTime.Now);
+							watchedUser.watchingList.Add (new WatchLog (channel, DateTime.Now));
+							Console.WriteLine ("{0} is watching {1} on {2}", watchedUser.name, channel, DateTime.Now);
 
-							if(dbmanager != null)
-								dbmanager.insertSpyInfo(watchedUser, channel, DateTime.Now);
+							if (dbmanager != null)
+								dbmanager.insertSpyInfo (watchedUser, channel, DateTime.Now);
 						}
 					});
 
 					done++;
-					if(done == channelsList.Count - 1){
-						statusCallback(true);
+					if (done == channelsList.Count - 1) {
+						statusCallback (true);
 					}
 				});
 			});
