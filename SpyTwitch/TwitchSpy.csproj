@@ -51,9 +51,14 @@
     <Compile Include="TwitchApi.cs" />
     <Compile Include="manageDb.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\WatchLog.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

@@ -146,30 +146,4 @@ namespace TwitchSpy
 			});
 		}
 	}
-
-	public class User
-	{
-		public string name;
-		public List<WatchLog> watchingList;
-		public List<string> follows;
-
-		public User (string name)
-		{
-			this.name = name;
-			watchingList = new List<WatchLog> ();
-			follows = new List<string> ();
-		}
-	}
-
-	public struct WatchLog
-	{
-		public string channelName;
-		public DateTime when;
-
-		public WatchLog (string channelName, DateTime when)
-		{
-			this.channelName = channelName;
-			this.when = when;
-		}
-	}
 }
