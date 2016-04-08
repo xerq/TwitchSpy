@@ -17,18 +17,18 @@ namespace TwitchSpy
 		static List<string> topChannels;
 		static List<string> customChannels;
 
-		static manageDb dbmanager;
+		static ManageDb dbmanager;
 
 		public static void Main (string[] args)
 		{
 			if (Config.useDb)
-				dbmanager = new manageDb (Config.mongodbConnectionString, Config.mongoDatabaseName);
+				dbmanager = new ManageDb (Config.mongodbConnectionString, Config.mongoDatabaseName);
 
 			watchingChannels = new List<string> ();
 			topChannels = new List<string> ();
 			watchedUsers = new List<User> ();
 
-			TwitchApi.getTopChannels (Config.topChannelsLimit, (channels) => {
+			TwitchApi.GetTopChannels (Config.topChannelsLimit, (channels) => {
 				channels.ForEach (channel => topChannels.Add (channel));
 			});
 
@@ -38,7 +38,7 @@ namespace TwitchSpy
 			watchedUsers.Add (currentUser);
 
 
-			TwitchApi.getFollowing (userName, (List<string> follows) => {
+			TwitchApi.GetFollowing (userName, (List<string> follows) => {
 				
 				follows.ForEach (follow => {
 					Console.WriteLine (follow);
@@ -50,7 +50,7 @@ namespace TwitchSpy
 			Task.Run (async delegate {
 				while (true) {
 					bool isDone = false;
-					watchUsers (watchedUsers, (status) => {
+					WatchUsers (watchedUsers, (status) => {
 						isDone = true;
 					});
 					while (!isDone) {
@@ -117,7 +117,7 @@ namespace TwitchSpy
 			}
 		}
 
-		public static void watchUsers (List<User> watchedUsers, Action<bool> statusCallback)
+		public static void WatchUsers (List<User> watchedUsers, Action<bool> statusCallback)
 		{
 			HashSet<string> channels = new HashSet<string> ();
 
@@ -135,7 +135,7 @@ namespace TwitchSpy
 			int done = 0;
 
 			channelsList.ForEach (channel => {
-				TwitchApi.getViewersOfChannel (channel, (viewers) => {
+				TwitchApi.GetViewersOfChannel (channel, (viewers) => {
 					watchedUsers.ForEach (watchedUser => {
 						int count = viewers.Count (viewer => viewer == watchedUser.name);
 						if (count != 0) {
@@ -143,7 +143,7 @@ namespace TwitchSpy
 							Console.WriteLine ("{0} is watching {1} on {2}", watchedUser.name, channel, DateTime.Now);
 
 							if (dbmanager != null)
-								dbmanager.insertSpyInfo (watchedUser, channel, DateTime.Now);
+								dbmanager.InsertSpyInfo (watchedUser, channel, DateTime.Now);
 						}
 					});
 
