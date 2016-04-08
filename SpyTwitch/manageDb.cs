@@ -17,7 +17,7 @@ namespace TwitchSpy
 
 		public void insertSpyInfo(User watchedUser, string channel, DateTime when){
 			BsonDocument document = new BsonDocument{
-				{"text", string.Format("{0} is watching {1} on {2}", watchedUser, channel, DateTime.Now)}
+				{"text", string.Format("{0} was watching {1} on {2}", watchedUser, channel, DateTime.Now)}
 			};
 
 
