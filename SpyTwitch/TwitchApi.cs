@@ -8,10 +8,8 @@ namespace TwitchSpy
 {
 	public class TwitchApi
 	{
-
 		public TwitchApi ()
 		{
-			
 		}
 
 		public static void getViewersOfChannel (string channelName, Action<List<string>> callback)
@@ -21,11 +19,11 @@ namespace TwitchSpy
 			wc.DownloadStringCompleted += (object sender, DownloadStringCompletedEventArgs e) => {
 				if (e.Error != null) {
 					Console.WriteLine ("Error on loading " + apiLink);
-					callback(new List<string>());
+					callback (new List<string> ());
 				} else {
 					string apiContentJson = e.Result;
 
-					//JSON
+					////JSON
 					dynamic obj = JsonConvert.DeserializeObject (apiContentJson);
 					var chatters = obj.chatters;
 					var viewers = chatters.viewers;
@@ -34,11 +32,11 @@ namespace TwitchSpy
 					var admins = chatters.admins;
 
 					List<string> ret = viewers.ToObject<List<string>> ();
-					ret.AddRange(moderators.ToObject<List<string>>());
-					ret.AddRange(staff.ToObject<List<string>>());
-					ret.AddRange(admins.ToObject<List<string>>());
+					ret.AddRange (moderators.ToObject<List<string>> ());
+					ret.AddRange (staff.ToObject<List<string>> ());
+					ret.AddRange (admins.ToObject<List<string>> ());
 
-					wc.Dispose();
+					wc.Dispose ();
 					callback (ret);
 				}
 			};
@@ -57,27 +55,27 @@ namespace TwitchSpy
 				dynamic countJson = JsonConvert.DeserializeObject (countData);
 				int countOfFollows = Convert.ToInt32 (countJson ["_total"]);
 
-				wc.Dispose();
+				wc.Dispose ();
 				callback (countOfFollows);
 			};
 
-			wc.DownloadStringAsync (new Uri(countLink));
+			wc.DownloadStringAsync (new Uri (countLink));
 		}
 
 		public static void getFollowing (string channelName, Action<List<string>> callback)
 		{
-			//GET NUMBER OF FOLLOWS
+			////GET NUMBER OF FOLLOWS
 			getFollowingCount (channelName, (int followsCount) => {
 				int currentOffset = 0;
 
 				for (currentOffset = 0; currentOffset < followsCount; currentOffset += 100) {
 					string apiLink = "https://api.twitch.tv/kraken/users/" + channelName + "/follows/channels?direction=DESC&limit=100&offset=" + currentOffset + "&sortby=created_at";
-					WebClient currentOffsetWC = new WebClient();
+					WebClient currentOffsetWC = new WebClient ();
 					currentOffsetWC.DownloadStringCompleted += (object sender, DownloadStringCompletedEventArgs e) => {
 						string apiContentJson = e.Result;
 
 
-						//JSON
+						////JSON
 						dynamic obj = JsonConvert.DeserializeObject (apiContentJson);
 						var follows = obj.follows;
 
@@ -89,7 +87,7 @@ namespace TwitchSpy
 							followsParsed.Add (userName.Value);
 						}
 
-						currentOffsetWC.Dispose();
+						currentOffsetWC.Dispose ();
 						callback (followsParsed);
 					};
 					currentOffsetWC.DownloadStringAsync (new Uri (apiLink));
@@ -105,9 +103,9 @@ namespace TwitchSpy
 			string apiLink = "https://api.twitch.tv/kraken/users/" + channelName + "/follows/channels?direction=DESC&limit=100&offset=" + currentOffset + "&sortby=created_at";
 			wc.DownloadStringCompleted += (object sender, DownloadStringCompletedEventArgs e) => {
 				string apiContentJson = e.Result;
-				List<string> followsParsed = new List<string>();
+				List<string> followsParsed = new List<string> ();
 
-				//JSON
+				////JSON
 				dynamic obj = JsonConvert.DeserializeObject (apiContentJson);
 				var follows = obj.follows;
 				foreach (var follow in follows) {
@@ -117,13 +115,14 @@ namespace TwitchSpy
 					followsParsed.Add (userName.Value);
 				}
 
-				wc.Dispose();
+				wc.Dispose ();
 				callback (followsParsed);
 			};
 			wc.DownloadStringAsync (new Uri (apiLink));
 		}
 
-		public static void getTopChannels(int limit, Action<List<string>> callback){
+		public static void getTopChannels (int limit, Action<List<string>> callback)
+		{
 			for (int offset = 0; offset < limit; offset += 100) {
 				WebClient wc = new WebClient ();
 
@@ -150,4 +149,3 @@ namespace TwitchSpy
 		}
 	}
 }
-
