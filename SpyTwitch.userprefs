@@ -1,0 +1,13 @@
+﻿<Properties StartupItem="SpyTwitch/SpyTwitch.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="SpyTwitch/Program.cs">
+    <Files>
+      <File FileName="SpyTwitch/Program.cs" Line="34" Column="41" />
+      <File FileName="SpyTwitch/TwitchApi.cs" Line="15" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

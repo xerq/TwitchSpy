@@ -1,2 +1,2 @@
 # TwitchSpy
-Spy on twitch users
+Spy on twitch users.

@@ -1,0 +1,13 @@
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/obj/x86/Debug/SpyTwitch.exe
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/obj/x86/Debug/SpyTwitch.exe.mdb
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/bin/Debug/Newtonsoft.Json.dll
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/bin/Debug/SpyTwitch.exe.mdb
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/bin/Debug/SpyTwitch.exe
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/bin/Debug/TwitchSpy.exe.mdb
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/bin/Debug/TwitchSpy.exe
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/obj/x86/Debug/TwitchSpy.exe
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/obj/x86/Debug/TwitchSpy.exe.mdb
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/bin/Debug/MongoDB.Bson.dll
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/bin/Debug/MongoDB.Driver.Core.dll
+/home/xerq/olddiskcopy/Documents/Visual Studio 2015/Projects/SpyTwitch/SpyTwitch/bin/Debug/MongoDB.Driver.dll
