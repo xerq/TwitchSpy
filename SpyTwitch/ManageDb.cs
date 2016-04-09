@@ -4,12 +4,12 @@ using MongoDB.Bson;
 
 namespace TwitchSpy
 {
-	public class manageDb
+	public class ManageDb
 	{
 		protected static IMongoClient client;
 		protected static IMongoDatabase database;
 
-		public manageDb (string connectionString, string dbName)
+		public ManageDb (string connectionString, string dbName)
 		{
 			client = new MongoClient (connectionString);
 			database = client.GetDatabase (dbName);
