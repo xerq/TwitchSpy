@@ -15,7 +15,7 @@ namespace TwitchSpy
 			database = client.GetDatabase (dbName);
 		}
 
-		public void insertSpyInfo (User watchedUser, string channel, DateTime when)
+		public void InsertSpyInfo (User watchedUser, string channel, DateTime when)
 		{
 			BsonDocument document = new BsonDocument {
 				{ "text", string.Format ("{0} was watching {1} on {2}", watchedUser, channel, DateTime.Now) }
